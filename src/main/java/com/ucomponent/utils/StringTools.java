@@ -12,7 +12,7 @@ public class StringTools {
 	/**
 	 * 去掉null
 	 * @param input
-	 * @return
+	 * @return String
 	 */
 	public static String getString(String input) {
 		if (null == input) {
@@ -24,7 +24,7 @@ public class StringTools {
 	 * 如果为null则返回def
 	 * @param input
 	 * @param def
-	 * @return
+	 * @return String
 	 */
 	public static String getString(String input,String def) {
 		if (null == input) {
@@ -46,7 +46,7 @@ public class StringTools {
 	/**
 	 * 过滤html字符
 	 * @param input
-	 * @return
+	 * @return String
 	 */
 	public static String getHtmlString(String input) {
 		if (null == input) {
@@ -59,22 +59,24 @@ public class StringTools {
 	/**
 	 * 解密
 	 * @param inword
-	 * @return
+	 * @return String
 	 */
 	public static String getDecHStr(String key,String inword){
 		inword = getString(inword);
 		try {
-			return new EncryptStringGen(key).decrypt(inword);
+			String out = new EncryptStringGen(key).decrypt(inword);
+			return  out;
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "";
+			return "-1";
 		}
 	}
 	/**
 	 * 加密
 	 * @param inword
-	 * @return
+	 * @return String
 	 */
 	public static String getEncStr(String key,String inword){
 		inword = getString(inword);

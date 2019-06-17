@@ -11,7 +11,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ucomponent.base.ICommons;
 import com.ucomponent.base.encrypt.EncryptPO;
+import com.ucomponent.base.entity.BizCodeSetList;
 import com.ucomponent.base.entity.CodeSetList;
 
 /**
@@ -20,10 +22,127 @@ import com.ucomponent.base.entity.CodeSetList;
  * 加入递归方法
  * 可以设置Object中ManyToOne的codeset
  * @Author:Daimalaoge
- * @Title:
- * @Descpt:
  */
-public class ControllerTools {
+public class ControllerTools  implements ICommons {
+	/**
+	 * BIZ业务用
+	 * @param key
+	 * @param jsonlist
+	 * @return
+	 */
+	public List<BaseLayuiVO> bizCodeKeyConvert(String key,List<BaseLayuiVO> jsonlist){
+		System.out.println(jsonlist);
+		List<BaseLayuiVO> list = new ArrayList<BaseLayuiVO>();
+		try {
+			list = deepCopyList(jsonlist);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BizCodeSetList cslist = BizCodeSetList.getInstance();
+		for(Object jo:list){
+			Method[] md = jo.getClass().getMethods();
+			Field[] fs = jo.getClass().getDeclaredFields();
+			for (Field field : fs) {
+				// 得到成员变量的类型的类类型
+				Class fieldType = field.getType();
+				if(!isPoType(fieldType)){
+					try {
+						field.setAccessible(true);
+						Object value = field.get(jo); // 取变量的值
+						codeKeyConvertObject(value);
+					}catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			for(Method m:md){
+				String mname = m.getName();
+				if(mname.indexOf(GET_BIZ_CODESET) != -1 ){
+					String cname = mname.replaceAll(GET_BIZ_CODESET, "");
+					System.out.println("cname========="+cname);
+					Class<?> clazz = jo.getClass();
+					try {
+						Method method = clazz.getMethod(mname);
+						Method setmethod = clazz.getMethod(SET_BIZ_CODESET+cname,String.class);
+						System.out.println(cslist.getName((String)method.invoke(jo)));
+						setmethod.invoke(jo,cslist.getName((String)method.invoke(jo)));
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		list = EncryptPO.encList(key,list);
+		System.out.println(list);
+		return list;
+	}
+
+	public Object bizCodeKeyConvertObject(Object jo){
+		Method[] md = jo.getClass().getMethods();
+		Field[] fs = jo.getClass().getDeclaredFields();
+		for (Field field : fs) {
+			// 得到成员变量的类型的类类型 - 递归
+			Class fieldType = field.getType();
+			if(!isPoType(fieldType)){
+				try {
+					field.setAccessible(true);
+					Object value = field.get(jo); // 取变量的值
+					codeKeyConvertObject(value);
+				}catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		BizCodeSetList cslist = BizCodeSetList.getInstance();
+		for(Method m:md){
+			String mname = m.getName();
+			if(mname.contains(GET_BIZ_CODESET) ){
+				String cname = mname.replaceAll(GET_BIZ_CODESET, "");
+				Class<?> clazz = jo.getClass();
+				try {
+					Method method = clazz.getMethod(mname);
+					Method setmethod = clazz.getMethod(SET_BIZ_CODESET+cname,String.class);
+					setmethod.invoke(jo,cslist.getName((String)method.invoke(jo)));
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return jo;
+	}
+
+	/**
+	 * System Use
+	 * @param key
+	 * @param jsonlist
+	 * @return
+	 */
 	public List<BaseLayuiVO> codeKeyConvert(String key,List<BaseLayuiVO> jsonlist){
 		System.out.println(jsonlist);
 		List<BaseLayuiVO> list = new ArrayList<BaseLayuiVO>();
@@ -140,7 +259,7 @@ public class ControllerTools {
 	}
 	/**
 	 * 判断object是否为基本类型
-	 * @param
+	 * @param className
 	 * @return 是：true
 	 */
 	public static boolean isBaseType(Class className) {
@@ -159,7 +278,7 @@ public class ControllerTools {
 
 	/**
 	 * 判断object是否为PO常用定义类型（基本类型、引用类型）
-	 * @param
+	 * @param Class cls
 	 * @return 是：true
 	 */
 	public static boolean isPoType(Class cls) {

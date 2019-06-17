@@ -9,8 +9,6 @@ import java.io.Serializable;
 /**
  * 2019年3月11日
  * @Author:Daimalaoge
- * @Title:
- * @Descpt:
  */
 
 public class BaseLayuiVO implements Serializable{

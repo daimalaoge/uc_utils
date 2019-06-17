@@ -15,7 +15,7 @@ import java.util.Date;
 public class DateTools {
   /**
    * 昨天
-   * @return
+   * @return String
    */
 	public static String getYesterday() {
 		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
@@ -30,7 +30,7 @@ public class DateTools {
 	 * 之前几天
 	 * @param inputdate
 	 * @param day
-	 * @return
+	 * @return String
 	 */
 	public static String getLastday(String inputdate, int day) {
 		if (day < 0) {
@@ -52,7 +52,7 @@ public class DateTools {
 	/**
 	 * 当前日期前几天
 	 * @param day
-	 * @return
+	 * @return String
 	 */
 	public static String getLastday(int day) {
 		Date date = new Date();
@@ -70,7 +70,7 @@ public class DateTools {
 	 * 之后几天
 	 * @param inputdate
 	 * @param day
-	 * @return
+	 * @return String
 	 */
 	public static String getAfterday(String inputdate, int day) {
 		if (day < 0) {
@@ -92,7 +92,7 @@ public class DateTools {
 	/**
 	 * 当前日期后几天
 	 * @param day
-	 * @return
+	 * @return String
 	 */
 	public static String getAfterday(int day) {
 		Date date = new Date();
@@ -114,7 +114,7 @@ public class DateTools {
 	 * date1 = date2 返回0
 	 * @param date1
 	 * @param date2
-	 * @return
+	 * @return int
 	 */
 	public static int compareDate(String date1, String date2) {
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -150,7 +150,7 @@ public class DateTools {
 	/**
 	 * 当前日期后几年
 	 * @param year
-	 * @return
+	 * @return String
 	 */
 	public static String getAfterYear(int year) {
 		Date date = new Date();

@@ -9,7 +9,7 @@ public class EncryptPO {
 	/**
 	 * 加密
 	 * @param bo
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO encPO(String key,BaseLayuiVO bo){
 		try {
@@ -30,7 +30,7 @@ public class EncryptPO {
 	/**
 	 * 解密
 	 * @param bo
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO decPO(String key,BaseLayuiVO bo){
 		try {
@@ -54,7 +54,7 @@ public class EncryptPO {
 	 * 加密
 	 * @param bo
 	 * @param mod
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO encPO(String key,BaseLayuiVO bo,String mod){
 		try {
@@ -76,7 +76,7 @@ public class EncryptPO {
 	 * 解密
 	 * @param bo
 	 * @param mod
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO decPO(String key,BaseLayuiVO bo,String mod){
 		try {
@@ -98,7 +98,7 @@ public class EncryptPO {
 	 * @param bo
 	 * @param mod
 	 * @param key
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO encPOKey(BaseLayuiVO bo,String mod,String key){
 		try {
@@ -121,7 +121,7 @@ public class EncryptPO {
 	 * @param bo
 	 * @param mod
 	 * @param key
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static BaseLayuiVO decPOKey(BaseLayuiVO bo,String mod,String key){
 		try {
@@ -141,7 +141,7 @@ public class EncryptPO {
 	/**
 	 * 加密->EncCode
 	 * @param list
-	 * @return
+	 * @return BaseLayuiVO
 	 */
 	public static List encList(String key,List<BaseLayuiVO> list){
 		try {
@@ -165,7 +165,7 @@ public class EncryptPO {
 	 * 加密->EncCode
 	 * @param list
 	 * @param mod
-	 * @return
+	 * @return List
 	 */
 	public static List encList(String key,List<BaseLayuiVO> list,String mod){
 		try {
@@ -188,7 +188,7 @@ public class EncryptPO {
 	 * 加密->EncCode
 	 * @param list
 	 * @param key
-	 * @return
+	 * @return List
 	 */
 	public static List encListKey(List<BaseLayuiVO> list,String key){
 		try {
@@ -212,7 +212,7 @@ public class EncryptPO {
 	 * @param list
 	 * @param mod
 	 * @param key
-	 * @return
+	 * @return List
 	 */
 	public static List encListKey(List<BaseLayuiVO> list,String mod,String key){
 		try {

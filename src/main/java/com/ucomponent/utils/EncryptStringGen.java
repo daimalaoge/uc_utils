@@ -79,13 +79,6 @@ public class EncryptStringGen implements ICommons{
   	}
   }
 
-  /**  
-   * 指定密钥构造方法  
-   *   
-   * @param strKey  
-   *            指定的密钥  
-   * @throws Exception  
-   */
 //  public EncryptStringGen() throws Exception {
 //    //Security.addProvider(new com.sun.crypto.provider.SunJCE());
 //    Key key = getKey(ENCRY_STRING_KEY.getBytes());
