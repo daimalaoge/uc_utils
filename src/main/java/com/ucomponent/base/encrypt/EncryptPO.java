@@ -1,6 +1,6 @@
 package com.ucomponent.base.encrypt;
 
-import com.ucomponent.base.controller.BaseLayuiVO;
+import com.ucomponent.base.controller.vo.BaseLayuiVO;
 
 import java.lang.reflect.Method;
 import java.util.List;
